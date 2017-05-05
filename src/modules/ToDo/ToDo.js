@@ -92,7 +92,13 @@ class ToDoItem extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.state = props.data;
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
+    this.state = {
+      hovered: false,
+      ...props.data
+    };
   }
   handleChange(e) {
     this.setState({
@@ -102,14 +108,21 @@ class ToDoItem extends Component {
   handleDelete(e) {
     this.props.onDelete(this.props.position);
   }
+
+  handleMouseLeave() {
+    this.setState({hovered: false});
+  }
+  handleMouseEnter() {
+    this.setState({hovered: true});
+  }
   render() {
     const completedClass = this.state.completed ? 'completed' : '';
     return (
-      <li className={'todo-list-item ' + completedClass}>
+      <li className={'todo-list-item ' + completedClass} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
         <label>
           <input type="checkbox" onChange={this.handleChange} checked={this.state.completed}/>
           <span>{this.state.title}</span>
-          {this.state.completed && <button onClick={this.handleDelete}>Remove</button>}
+          {this.state.hovered && <button onClick={this.handleDelete}>Remove</button>}
         </label>
       </li>
     );

@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 
-import Home from './Home';
 import Main from './Main';
-const About = () => <h1>Hello from About Page</h1>;
-const Contact = () => <h1>Hello from Contact Page</h1>;
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
+
+// additional modules
+import ToDo from './ToDo/ToDo';
+
 
 class Routes extends Component {
   render() {
@@ -14,6 +18,7 @@ class Routes extends Component {
             <IndexRoute component={Home} />
             <Route path="/about" component={About}/>
             <Route path="/contact" component={Contact} />
+            <Route path="/to-do" component={ToDo} />
           </Route>
       </Router>
     );

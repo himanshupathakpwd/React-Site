@@ -4,6 +4,7 @@ class ToDo extends Component {
   constructor(props) {
     super(props);
     this.deleteToDoAt = this.deleteToDoAt.bind(this);
+    this.createTodo = this.createTodo.bind(this);
     this.state = {
       todos: [
         {
@@ -19,15 +20,25 @@ class ToDo extends Component {
     }
   }
   deleteToDoAt(position) {
-    const newToDos = this.state.todos;
-    newToDos.splice(position, 1);
-    this.setState({todos: newToDos});
+    this.state.todos.splice(position, 1);
+    this.setState({todos: this.state.todos});
+  }
+  createTodo(title) {
+    const lastId = this.state.todos.length ? this.state.todos[this.state.todos.length - 1].id : 0;
+    this.state.todos.push({
+      id: lastId + 1,
+      title,
+      completed: false
+    });
+    this.setState({
+      todos: this.state.todos
+    });
   }
   render() {
     return (
       <div>
         <h1>ToDo</h1>
-        <AddToDo/>
+        <AddToDo add={this.createTodo} />
         <ToDoList todos={this.state.todos} onDelete={this.deleteToDoAt}/>
       </div>
     );
@@ -41,13 +52,16 @@ class AddToDo extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    console.log(e.ref);
+    if (e.target.todo.value.length) {
+      this.props.add(e.target.todo.value);
+      e.target.todo.value = '';
+    }
   }
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" ref="todo"/>
-        <button>Submit</button>
+        <input type="text" name="todo"/>
+        <button>Create</button>
       </form>
     );
   }

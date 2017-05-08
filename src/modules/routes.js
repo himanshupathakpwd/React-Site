@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 
 import Main from './Main';
 import Home from './Home';
@@ -13,7 +13,7 @@ import ToDo from './ToDo/ToDo';
 class Routes extends Component {
   render() {
     return (
-      <Router history={hashHistory}>
+      <Router history={browserHistory}>
           <Route path="/" component={Main}>
             <IndexRoute component={Home} />
             <Route path="/about" component={About}/>

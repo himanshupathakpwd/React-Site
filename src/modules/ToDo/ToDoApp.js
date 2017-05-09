@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import moment from 'moment';
 import uuidV1 from 'uuid/v1';
 
 import AddToDo from './AddToDo';
@@ -17,11 +18,15 @@ class ToDoApp extends Component {
         {
           id: uuidV1(),
           title: 'Do React',
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }, {
           id: uuidV1(),
           title: 'Do Angular2',
-          completed: true
+          completed: true,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     };
@@ -57,7 +62,9 @@ class ToDoApp extends Component {
       todos: this.state.todos.concat({
         id: uuidV1(),
         title,
-        completed: false
+        createdAt: moment().unix(),
+        completed: false,
+        completedAt: undefined
       })
     });
   }

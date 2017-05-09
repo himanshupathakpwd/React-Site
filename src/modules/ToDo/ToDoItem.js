@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import moment from 'moment';
+
 export default class ToDoItem extends Component {
   constructor(props) {
     super(props);
@@ -7,7 +9,6 @@ export default class ToDoItem extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
-
     this.state = {
       hovered: false,
       item: {
@@ -18,6 +19,11 @@ export default class ToDoItem extends Component {
   handleChange(e) {
     var item = this.state.item;
     item.completed = !item.completed;
+    if (item.completed) {
+      item.completedAt = moment().unix();
+    } else {
+      item.completedAt = undefined;
+    }
     this.setState({item});
     this.props.onUpdate(this.state.item);
   }

@@ -7,7 +7,7 @@ import About from './About';
 import Contact from './Contact';
 
 // additional modules
-import ToDo from './ToDo/ToDo';
+import ToDo from './ToDo/ToDoApp';
 
 
 class Routes extends Component {

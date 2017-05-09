@@ -19,11 +19,10 @@ export default class ToDoActions extends Component {
         totalRemaining++;
       }
     }
+    let totalRemainingText = `${totalRemaining} ${totalRemaining > 1 ? 'items' : 'item'} left`;
     return (
       <div>
-        {< span > {
-          `${totalRemaining} ${totalRemaining > 1 ? 'items' : 'item'} left`
-        } < /span>}
+        {(this.state.todos.length > 0) && totalRemainingText}
       </div>
     );
   }

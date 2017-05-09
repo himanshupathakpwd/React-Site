@@ -37,7 +37,7 @@ export default class ToDoItem extends Component {
       <li className={'todo-list-item ' + completedClass} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
         <label>
           <input type="checkbox" onChange={this.handleChange} checked={this.state.item.completed}/>
-          <span>{this.state.item.title}</span>
+          <span>{`${this.state.item.title} (${this.state.item.id})`}</span>
           {this.state.hovered && <button onClick={this.handleDelete}>Remove</button>}
         </label>
       </li>

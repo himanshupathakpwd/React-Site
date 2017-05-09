@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import uuidV1 from 'uuid/v1';
+
 import AddToDo from './AddToDo';
 import ToDoList from './ToDoList';
 import ToDoActions from './ToDoActions';
@@ -13,11 +15,11 @@ class ToDoApp extends Component {
     this.state = {
       todos: [
         {
-          id: 1,
+          id: uuidV1(),
           title: 'Do React',
           completed: false
         }, {
-          id: 2,
+          id: uuidV1(),
           title: 'Do Angular2',
           completed: true
         }
@@ -50,10 +52,10 @@ class ToDoApp extends Component {
     this.setState({todos: this.state.todos});
   }
   createTodo(title) {
-    const lastId = this.state.todos.length ? this.state.todos[this.state.todos.length - 1].id : 0;
+    // const lastId = this.state.todos.length ? this.state.todos[this.state.todos.length - 1].id : 0;
     this.setState({
       todos: this.state.todos.concat({
-        id: lastId + 1,
+        id: uuidV1(),
         title,
         completed: false
       })

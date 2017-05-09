@@ -28,11 +28,4 @@ class Main extends Component {
   }
 }
 
-// class NavLink extends Component {
-//   render() {
-//     return (
-//         <Link {...this.props} activeClassName="active" />
-//     );
-//   }
-// }
 export default Main;

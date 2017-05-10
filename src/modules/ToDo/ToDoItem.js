@@ -16,6 +16,7 @@ export default class ToDoItem extends Component {
       }
     };
   }
+
   handleChange(e) {
     var item = this.state.item;
     item.completed = !item.completed;
@@ -27,6 +28,7 @@ export default class ToDoItem extends Component {
     this.setState({item});
     this.props.onUpdate(this.state.item);
   }
+
   handleDelete(e) {
     this.props.onDelete(this.props.position);
   }
@@ -34,9 +36,11 @@ export default class ToDoItem extends Component {
   handleMouseLeave() {
     this.setState({hovered: false});
   }
+
   handleMouseEnter() {
     this.setState({hovered: true});
   }
+
   render() {
     const completedClass = this.state.item.completed ? 'completed' : '';
     return (

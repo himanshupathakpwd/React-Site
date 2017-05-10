@@ -7,28 +7,17 @@ import AddToDo from './AddToDo';
 import ToDoList from './ToDoList';
 import ToDoActions from './ToDoActions';
 
+import ToDoApi from './ToDoApi';
+
 class ToDoApp extends Component {
   constructor(props) {
     super(props);
     this.deleteToDoAt = this.deleteToDoAt.bind(this);
     this.createTodo = this.createTodo.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.ToDoApi = new ToDoApi();
     this.state = {
-      todos: [
-        {
-          id: uuidV1(),
-          title: 'Do React',
-          completed: false,
-          createdAt: moment().unix(),
-          completedAt: undefined
-        }, {
-          id: uuidV1(),
-          title: 'Do Angular2',
-          completed: true,
-          createdAt: moment().unix(),
-          completedAt: undefined
-        }
-      ]
+      todos: JSON.parse(this.ToDoApi.getItem('todos'))
     };
   }
 
@@ -38,6 +27,11 @@ class ToDoApp extends Component {
 
   componentDidMount() {
     // console.log('component mounted');
+  }
+
+  componentDidUpdate() {
+    // console.log('component got updated');
+    this.ToDoApi.setItem('todos', JSON.stringify(this.state.todos));
   }
 
   handleUpdate(item) {
@@ -56,18 +50,14 @@ class ToDoApp extends Component {
     this.state.todos.splice(position, 1);
     this.setState({todos: this.state.todos});
   }
+
   createTodo(title) {
     // const lastId = this.state.todos.length ? this.state.todos[this.state.todos.length - 1].id : 0;
     this.setState({
-      todos: this.state.todos.concat({
-        id: uuidV1(),
-        title,
-        createdAt: moment().unix(),
-        completed: false,
-        completedAt: undefined
-      })
+      todos: this.state.todos.concat({id: uuidV1(), title, createdAt: moment().unix(), completed: false, completedAt: undefined})
     });
   }
+
   render() {
     return (
       <div>

@@ -32,7 +32,8 @@
 }
 
 .todo-list-item.completed {
-    color: red;
+    color: green;
+    text-decoration: line-through;
 }
 
 li a.active {

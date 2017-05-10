@@ -7,17 +7,19 @@ import AddToDo from './AddToDo';
 import ToDoList from './ToDoList';
 import ToDoActions from './ToDoActions';
 
-import ToDoApi from './ToDoApi';
+import ToDoApi from './API/ToDoApi';
 
-class ToDoApp extends Component {
+export default class ToDoApp extends Component {
   constructor(props) {
     super(props);
     this.deleteToDoAt = this.deleteToDoAt.bind(this);
     this.createTodo = this.createTodo.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+
     this.ToDoApi = new ToDoApi();
+    let todos = JSON.parse(this.ToDoApi.getItem('todos')) || [];
     this.state = {
-      todos: JSON.parse(this.ToDoApi.getItem('todos'))
+      todos
     };
   }
 
@@ -52,7 +54,6 @@ class ToDoApp extends Component {
   }
 
   createTodo(title) {
-    // const lastId = this.state.todos.length ? this.state.todos[this.state.todos.length - 1].id : 0;
     this.setState({
       todos: this.state.todos.concat({id: uuidV1(), title, createdAt: moment().unix(), completed: false, completedAt: undefined})
     });
@@ -62,12 +63,11 @@ class ToDoApp extends Component {
     return (
       <div>
         <h1>ToDo</h1>
+        <h2>All ToDos</h2>
         <AddToDo add={this.createTodo}/>
-        <ToDoList todos={this.state.todos} onDelete={this.deleteToDoAt} onUpdate={this.handleUpdate}/>
+        <ToDoList todos={this.state.todos} onDelete={this.deleteToDoAt} onUpdate={this.handleUpdate} filter={this.props.params.filterList}/>
         <ToDoActions todos={this.state.todos}/>
       </div>
     );
   }
 }
-
-export default ToDoApp;

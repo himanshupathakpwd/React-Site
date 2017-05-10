@@ -15,12 +15,22 @@ export default class ToDoList extends Component {
     this.props.onUpdate(elem);
   }
   render() {
-    const listItems = this.props.todos.map((todo, index) => {
-      return (<ToDoItem data={todo} key={todo.id} position={index} onDelete={this.handleDelete} onUpdate={this.handleUpdate}/>)
-    });
+    const todos = this.props.todos;
+    let filteredItems = [];
+    switch (this.props.filter) {
+      case 'completed':
+        filteredItems = todos.filter((todo) => todo.completed);
+        break;
+      case 'active':
+        filteredItems = todos.filter((todo) => !todo.completed);
+        break;
+      default:
+        filteredItems = todos;
+    }
+    const listItems = filteredItems.map((todo, index) => <ToDoItem data={todo} key={todo.id} position={index} onDelete={this.handleDelete} onUpdate={this.handleUpdate}/>);
     return (
       <ul className="todo-list">
-        {listItems}
+        {listItems.length ? listItems : 'No items avaialable'}
       </ul>
     );
   }

@@ -7,19 +7,18 @@ import About from './About';
 import Contact from './Contact';
 
 // additional modules
-import ToDo from './ToDo/ToDoApp';
-
+import ToDoApp from './ToDo/ToDoApp';
 
 class Routes extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-          <Route path="/" component={Main}>
-            <IndexRoute component={Home} />
-            <Route path="/about" component={About}/>
-            <Route path="/contact" component={Contact} />
-            <Route path="/to-do" component={ToDo} />
-          </Route>
+        <Route path="/" component={Main}>
+          <IndexRoute component={Home}/>
+          <Route path="/about" component={About}/>
+          <Route path="/contact" component={Contact}/>
+          <Route path="/to-do(/:filterList)" component={ToDoApp}/>
+        </Route>
       </Router>
     );
   }

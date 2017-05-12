@@ -8,11 +8,16 @@ export default class ToDoActions extends Component {
     this.state = {
       todos: props.todos
     };
+
+    this.handleClear = this.handleClear.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (this.state.todos !== nextProps.todos) {
       this.setState({todos: nextProps.todos});
     }
+  }
+  handleClear() {
+    this.props.onClear();
   }
   render() {
     let totalRemaining = 0;
@@ -38,7 +43,7 @@ export default class ToDoActions extends Component {
             </li>
           </ul>
         </nav>
-
+        {(this.state.todos.length !== totalRemaining) && <button onClick={this.handleClear}>Clear Completed</button>}
       </div>
     );
   }

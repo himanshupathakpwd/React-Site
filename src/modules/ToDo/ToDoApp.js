@@ -15,6 +15,7 @@ export default class ToDoApp extends Component {
     this.deleteToDoAt = this.deleteToDoAt.bind(this);
     this.createTodo = this.createTodo.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.removeCompleted = this.removeCompleted.bind(this);
 
     this.ToDoApi = new ToDoApi();
     let todos = JSON.parse(this.ToDoApi.getItem('todos')) || [];
@@ -48,6 +49,18 @@ export default class ToDoApp extends Component {
     this.setState({todos});
   }
 
+  removeCompleted() {
+    console.log('removed completed');
+    const todos = [];
+    this.state.todos.forEach((todo) => {
+      console.log(todo);
+      if (!todo.completed) {
+        todos.push(todo);
+      }
+    });
+    this.setState({todos});
+  }
+
   deleteToDoAt(position) {
     this.state.todos.splice(position, 1);
     this.setState({todos: this.state.todos});
@@ -66,7 +79,7 @@ export default class ToDoApp extends Component {
         <h2>All ToDos</h2>
         <AddToDo add={this.createTodo}/>
         <ToDoList todos={this.state.todos} onDelete={this.deleteToDoAt} onUpdate={this.handleUpdate} filter={this.props.params.filterList}/>
-        <ToDoActions todos={this.state.todos}/>
+        <ToDoActions todos={this.state.todos} onClear={this.removeCompleted}/>
       </div>
     );
   }

@@ -7,7 +7,7 @@ import AddToDo from './AddToDo';
 import ToDoList from './ToDoList';
 import ToDoActions from './ToDoActions';
 
-import ToDoApi from './API/ToDoApi';
+import {ToDoApiREST as ToDoApi} from './API/ToDoApi';
 
 export default class ToDoApp extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class ToDoApp extends Component {
     this.removeCompleted = this.removeCompleted.bind(this);
 
     this.ToDoApi = new ToDoApi();
-    let todos = JSON.parse(this.ToDoApi.getItem('todos')) || [];
+    let todos = [];
     this.state = {
       todos
     };
@@ -29,12 +29,25 @@ export default class ToDoApp extends Component {
   }
 
   componentDidMount() {
-    // console.log('component mounted');
+    console.log('component mounted');
+    this.ToDoApi.getTodos().then((response) => response.json()).then((todos) => {
+      todos.map((todo) => {
+        todo.id = todo._id;
+      });
+      return todos;
+    }).then(todos => {
+      this.setState({todos})
+    });
+
+    // .then(function (todos) {
+    //   console.log(todos);
+    // });
   }
 
   componentDidUpdate() {
     // console.log('component got updated');
-    this.ToDoApi.setItem('todos', JSON.stringify(this.state.todos));
+    console.log('component updated');
+    // this.ToDoApi.setTodos(this.state.todos);
   }
 
   handleUpdate(item) {
